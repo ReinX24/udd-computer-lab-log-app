@@ -1,0 +1,28 @@
+Add virtual host to Apache(httpd.conf) file
+
+Virtual host for feedback app
+
+Add the virtual host configuration
+
+File location (assuming you are using Windows and it is installed in the C 
+drive): C:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+<VirtualHost *:80>
+    DocumentRoot "C:\xampp\htdocs\udd-library-feedback-app\public"
+
+    ServerName uddfeedback.local
+    <Directory "C:\xampp\htdocs\udd-library-feedback-app\public">
+        RewriteEngine On
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . index.php [L]
+    </Directory>
+</VirtualHost>
+
+Add the following to the hosts file in Windows
+
+Hosts location: C:\Windows\System32\drivers\etc\hosts
+
+# UdD Library Feedback app
+127.0.0.1 uddfeedback.local

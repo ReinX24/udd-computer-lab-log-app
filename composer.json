@@ -1,0 +1,15 @@
+{
+    "name": "reinx/udd-computer-lab-app",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rein",
+            "email": "reinX244@gmail.com"
+        }
+    ],
+    "require": {}
+}

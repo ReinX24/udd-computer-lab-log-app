@@ -1,0 +1,5 @@
+# Ignore example credentials for accounts
+account_credentials.txt
+
+# Ignore legacy files
+legacy_files/
