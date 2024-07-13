@@ -16,7 +16,7 @@ class Database
     public function __construct()
     {
         $this->pdo = new PDO(
-            "mysql:host=localhost;port=3306;dbname=feedback_app",
+            "mysql:host=localhost;port=3306;dbname=lab_log_app",
             "root",
             ""
         );
@@ -24,6 +24,25 @@ class Database
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         self::$db = $this;
+    }
+
+    public function getCurrentDayLogs($currentDate)
+    {
+        $getCurrentDayLogsQuery =
+            "SELECT 
+                * 
+            FROM
+                lab_log
+            WHERE
+                :currentDate = CAST(created_at as DATE)";
+
+        $statement = $this->pdo->prepare($getCurrentDayLogsQuery);
+
+        $statement->bindValue("currentDate", $currentDate);
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getAdminDataByUsername(Admin $adminData)
