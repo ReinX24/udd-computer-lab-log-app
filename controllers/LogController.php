@@ -88,16 +88,17 @@ class LogController
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $logFormData["id"] = $_POST["id"];
+            $logFormData["name"] = $_POST["name"];
             $logFormData["student_id"] = $_POST["student_id"];
 
             $log = new Log();
             $log->load($logFormData);
-            $errors = $log->add_student_id();
+            $errors = $log->addStudentId();
 
-            // echo "<pre>";
-            // var_dump($log);
-            // echo "</pre>";
-            // exit;
+            if (empty($errors)) {
+                header("Location: /log/log_index");
+                exit;
+            }
         }
 
         $router->renderView(
@@ -106,6 +107,34 @@ class LogController
                 "currentPage" => "logIndex",
                 "logFormData" => $logFormData,
                 "errors" => $errors
+            ]
+        );
+    }
+
+    public function add_time_out(Router $router)
+    {
+        $logFormData = [
+            "id" => $_GET["id"] ?? null,
+            "name" => $_GET["name"] ?? null,
+            "time_out" => null
+        ];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $logFormData["id"] = $_POST["id"];
+            $logFormData["time_out"] = date("Y-m-d H:i:s");
+
+            $log = new Log();
+            $log->load($logFormData);
+            $log->addTimeOut();
+
+            header("Location: /log/log_index");
+            exit;
+        }
+
+        $router->renderView(
+            "log/add_time_out",
+            [
+                "currentPage" => "logIndex",
             ]
         );
     }

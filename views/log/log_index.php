@@ -7,7 +7,6 @@
     </div>
 
     <div class="mb-3">
-        <!-- TODO: add time in feature -->
         <a href="/log/log_add" class="btn btn-primary btn-lg">Add Time-In</a>
     </div>
 
@@ -50,12 +49,11 @@
 
                     <!-- Time-out -->
                     <?php if ($eachLog["time_out"]) : ?>
-                        <td><?= $eachLog["time_out"]; ?></td>
+                        <td><?= date("h:i:s A / m-d-Y", strtotime($eachLog["time_out"])); ?></td>
                     <?php else : ?>
                         <td>
                             <div class="d-flex justify-content-center">
-                                <!-- TODO: add time out function -->
-                                <a href="" class="btn btn-secondary btn-lg">Add Time-Out</a>
+                                <a href="/log/add_time_out?name=<?= $eachLog["name"]; ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg">Add Time-Out</a>
                             </div>
                         </td>
                     <?php endif; ?>

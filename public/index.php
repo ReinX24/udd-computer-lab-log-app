@@ -20,6 +20,9 @@ $router->addPostRoute("/log/log_add", [LogController::class, "log_add"]);
 $router->addGetRoute("/log/add_student_id", [LogController::class, "add_student_id"]);
 $router->addPostRoute("/log/add_student_id", [LogController::class, "add_student_id"]);
 
+$router->addGetRoute("/log/add_time_out", [LogController::class, "add_time_out"]);
+$router->addPostRoute("/log/add_time_out", [LogController::class, "add_time_out"]);
+
 $router->addGetRoute("/log/admin_login", [AdminController::class, "admin_login"]);
 $router->addPostRoute("/log/admin_login", [AdminController::class, "admin_login"]);
 

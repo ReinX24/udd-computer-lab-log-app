@@ -63,7 +63,7 @@ class Log
         return $errors;
     }
 
-    public function add_student_id()
+    public function addStudentId()
     {
         $errors = [];
 
@@ -71,11 +71,52 @@ class Log
             $errors["noStudentIdError"] = "Student ID is required.";
         }
 
-        // TODO: verify if the student ID is valid
-        echo $this->student_id;
-        exit;
+        // TODO: test if all the validation here works
+        // If the student_id is not empty, check if it is a valid
+        if (!empty($this->student_id)) {
+            // Check if the length is 11 (22-0365-456, 11 chars with -)
+            if (strlen($this->student_id) !== 11) {
+                $errors["invalidStudentId"] = "Invalid Student ID input.";
+            }
+
+            // This should return the array with 3 values
+            $id_values = explode("-", $this->student_id);
+
+            // Checks if there are 3 items in the array
+            if (count($id_values) !== 3) {
+                $errors["invalidStudentId"] = "Invalid Student ID input.";
+            }
+
+            // Checks if the values in the array are all digits
+            foreach ($id_values as $value) {
+                // Checks if the string is not numeric
+                if (!preg_match('{^[0-9]*$}', $value)) {
+                    $errors["invalidStudentId"] = "Invalid Student ID input.";
+                }
+            }
+
+            // Checks if there are 3 items and each item has the correct number
+            // of digits.
+            if (
+                count($id_values) == 3
+                && strlen($id_values[0]) !== 2
+                && strlen($id_values[1]) !== 4
+                && strlen($id_values[2]) !== 3
+            ) {
+                $errors["invalidStudentId"] = "Invalid Student ID input.";
+            }
+        }
+
+        if (empty($errors)) {
+            $this->db->addStudentId($this);
+        }
 
         return $errors;
+    }
+
+    public function addTimeOut()
+    {
+        $this->db->addTimeOutLog($this);
     }
 
     public function getCurrentDayLogs($currentDate)

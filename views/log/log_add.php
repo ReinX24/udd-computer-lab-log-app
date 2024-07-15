@@ -16,7 +16,7 @@
 
         <div class="mb-4">
             <label for="student_id" class="form-label fs-5">Student ID (Optional)</label>
-            <input type="text" name="student_id" class="form-control form-control-lg" placeholder="Enter Student ID here (22-ITE-01)">
+            <input type="text" name="student_id" class="form-control form-control-lg" placeholder="Enter Student ID here (22-0365-456)">
         </div>
 
         <div class="mb-4">
@@ -30,9 +30,10 @@
             <?php endif; ?>
         </div>
 
+        <!-- TODO: show when PM, only shows AM at the moment -->
         <div class="mb-4">
             <label for="time_in" class="form-label fs-5">Time-In</label>
-            <input type="time" name="time_in" class="form-control form-control-lg" value="<?= date("h:i") ?>" readonly>
+            <input type="time" name="time_in" class="form-control form-control-lg" value="<?= date("H:i"); ?>" readonly>
         </div>
 
         <div class="d-flex gap-2">

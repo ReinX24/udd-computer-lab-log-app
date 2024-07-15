@@ -67,6 +67,44 @@ class Database
         $statement->execute();
     }
 
+    public function addTimeOutLog(Log $logData)
+    {
+        // TODO: check if the time-in is the same as recorded alongside id
+        $addTimeOutQuery =
+            "UPDATE
+                lab_log
+            SET
+                time_out = :time_out
+            WHERE 
+                id = :id";
+
+        $statement = $this->pdo->prepare($addTimeOutQuery);
+
+        $statement->bindValue("time_out", $logData->time_out);
+        $statement->bindValue("id", $logData->id);
+
+        $statement->execute();
+    }
+
+    public function addStudentId(Log $logData)
+    {
+        // TODO: check if the time-in is the same as recorded alongside id
+        $addStudentIdQuery =
+            "UPDATE
+                lab_log
+            SET
+                student_id = :student_id
+            WHERE
+                id = :id";
+
+        $statement = $this->pdo->prepare($addStudentIdQuery);
+
+        $statement->bindValue("student_id", $logData->student_id);
+        $statement->bindValue("id", $logData->id);
+
+        $statement->execute();
+    }
+
     public function getAdminDataByUsername(Admin $adminData)
     {
         $getAdminQuery =
