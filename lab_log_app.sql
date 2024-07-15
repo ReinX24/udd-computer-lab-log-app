@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2024 at 05:39 PM
+-- Generation Time: Jul 15, 2024 at 05:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `feedback_app`
+-- Database: `lab_log_app`
 --
 
 -- --------------------------------------------------------
@@ -78,6 +78,30 @@ INSERT INTO `feedback` (`id`, `name`, `feedback`, `category`, `is_edited`, `crea
 (17, 'Anonymous', 'This is feedback for staff and this is edited.', 'staff', 1, '2024-07-02 20:08:48'),
 (20, 'Anonymous', 'This is a misc feedback and it is edited.', 'facilities', 1, '2024-07-03 22:59:09');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lab_log`
+--
+
+CREATE TABLE `lab_log` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `student_id` varchar(255) DEFAULT NULL,
+  `computer_number` int(11) NOT NULL,
+  `time_in` datetime NOT NULL,
+  `time_out` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lab_log`
+--
+
+INSERT INTO `lab_log` (`id`, `name`, `student_id`, `computer_number`, `time_in`, `time_out`, `created_at`) VALUES
+(1, 'Rein', NULL, 1, '2024-07-15 14:25:28', NULL, '2024-07-15 20:34:43'),
+(2, 'John', '', 3, '2024-07-15 11:03:13', NULL, '2024-07-15 11:03:13');
+
 --
 -- Indexes for dumped tables
 --
@@ -95,6 +119,12 @@ ALTER TABLE `feedback`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `lab_log`
+--
+ALTER TABLE `lab_log`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -109,6 +139,12 @@ ALTER TABLE `admin_accounts`
 --
 ALTER TABLE `feedback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `lab_log`
+--
+ALTER TABLE `lab_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

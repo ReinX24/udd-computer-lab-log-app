@@ -8,19 +8,19 @@
 
     <div class="mb-3">
         <!-- TODO: add time in feature -->
-        <a href="/log/add_log" class="btn btn-primary btn-lg">Add Time-In</a>
+        <a href="/log/log_add" class="btn btn-primary btn-lg">Add Time-In</a>
     </div>
 
-    <div class="mb-3 alert alert-primary">
-        Note:
+    <div class="mb-3 alert alert-primary text-center fs-4">
+        Remember to time-out after using a computer.
     </div>
 
     <table class="table table-bordered fs-5">
         <thead>
             <tr>
-                <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Student ID</th>
+                <th scope="col">Computer</th>
                 <th scope="col">Time-In</th>
                 <th scope="col">Time-Out</th>
                 <th scope="col"></th>
@@ -29,23 +29,35 @@
         <tbody>
             <?php foreach ($currentDayLogs as $eachLog) : ?>
                 <tr>
-                    <th scope="row"><?= $eachLog["id"]; ?></th>
+                    <!-- <th scope="row"><?= $eachLog["id"]; ?></th> -->
                     <td><?= $eachLog["name"]; ?></td>
 
                     <!-- Student ID -->
-                    <?php if (isset($eachLog["student_id"])) : ?>
+                    <?php if ($eachLog["student_id"]) : ?>
                         <td><?= $eachLog["student_id"]; ?></td>
                     <?php else : ?>
-                        <td class="text-danger">NO STUDENT ID</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <a href="/log/add_student_id?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"] ?>" class="btn btn-secondary btn-lg">
+                                    Add Student ID
+                                </a>
+                            </div>
+                        </td>
                     <?php endif; ?>
 
-                    <td><?= $eachLog["time_in"]; ?></td>
+                    <td><?= $eachLog["computer_number"]; ?></td>
+                    <td><?= date("h:i:s A / m-d-Y", strtotime($eachLog["time_in"])); ?></td>
 
                     <!-- Time-out -->
-                    <?php if (isset($eachLog["time_out"])) : ?>
+                    <?php if ($eachLog["time_out"]) : ?>
                         <td><?= $eachLog["time_out"]; ?></td>
                     <?php else : ?>
-                        <td class="text-danger">NO TIME-OUT RECORDED</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <!-- TODO: add time out function -->
+                                <a href="" class="btn btn-secondary btn-lg">Add Time-Out</a>
+                            </div>
+                        </td>
                     <?php endif; ?>
 
                     <!-- Edit or delete -->

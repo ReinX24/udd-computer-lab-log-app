@@ -15,7 +15,7 @@
                         <a class="nav-link <?= $currentPage == "logIndex" ? "active" : ""; ?>" href="/log/log_index">Logs</a>
                     </li>
                     <li>
-                        <a class="nav-link <?= $currentPage == "adminLoginForm" ? "active" : ""; ?>" href="/feedback/admin_login">Admin Login</a>
+                        <a class="nav-link <?= $currentPage == "adminLoginForm" ? "active" : ""; ?>" href="/log/admin_login">Admin Login</a>
                     </li>
                 </ul>
             </div>

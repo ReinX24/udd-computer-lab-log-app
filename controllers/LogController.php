@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
+date_default_timezone_set('Asia/Manila');
+
 use app\Router;
 use app\models\Log;
 
-use DateTime;
 
 /**
  * Class for redirecting the user in the udd-computer-lab-log-app
  */
 class LogController
 {
-    private Log $logData;
-
     public function index(Router $router)
     {
         $router->renderView(
@@ -37,6 +36,76 @@ class LogController
             [
                 "currentPage" => "logIndex",
                 "currentDayLogs" => $currentDayLogs
+            ]
+        );
+    }
+
+    public function log_add(Router $router)
+    {
+        $errors = [];
+
+        $logFormData = [
+            "name" => null,
+            "student_id" => null,
+            "computer_number" => null,
+            "time_in" => null
+        ];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $logFormData["name"] = $_POST["name"];
+            $logFormData["student_id"] = $_POST["student_id"];
+            $logFormData["computer_number"] = $_POST["computer_number"];
+            $logFormData["time_in"] = date("Y-m-d H:i:s"); // get current date
+
+            $log = new Log();
+            $log->load($logFormData);
+            $errors = $log->save();
+
+            if (empty($errors)) {
+                header("Location: /log/log_index");
+                exit;
+            }
+        }
+
+        $router->renderView(
+            "log/log_add",
+            [
+                "currentPage" => "logIndex",
+                "errors" => $errors
+            ]
+        );
+    }
+
+    public function add_student_id(Router $router)
+    {
+        $errors = [];
+
+        $logFormData = [
+            "id" => $_GET["id"] ?? null,
+            "name" => $_GET["name"] ?? null,
+            "student_id" => null
+        ];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $logFormData["id"] = $_POST["id"];
+            $logFormData["student_id"] = $_POST["student_id"];
+
+            $log = new Log();
+            $log->load($logFormData);
+            $errors = $log->add_student_id();
+
+            // echo "<pre>";
+            // var_dump($log);
+            // echo "</pre>";
+            // exit;
+        }
+
+        $router->renderView(
+            "log/add_student_id",
+            [
+                "currentPage" => "logIndex",
+                "logFormData" => $logFormData,
+                "errors" => $errors
             ]
         );
     }

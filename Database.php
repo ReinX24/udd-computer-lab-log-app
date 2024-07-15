@@ -6,6 +6,7 @@ namespace app;
 
 use app\models\Feedback;
 use app\models\Admin;
+use app\models\Log;
 use \PDO;
 
 class Database
@@ -34,7 +35,10 @@ class Database
             FROM
                 lab_log
             WHERE
-                :currentDate = CAST(created_at as DATE)";
+                :currentDate = CAST(created_at as DATE)
+            ORDER BY
+                created_at
+            ASC";
 
         $statement = $this->pdo->prepare($getCurrentDayLogsQuery);
 
@@ -43,6 +47,24 @@ class Database
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addTimeInLog(Log $logData)
+    {
+        $addTimeInQuery =
+            "INSERT INTO
+                lab_log (name, student_id, computer_number, time_in)
+            VALUES
+                (:name, :student_id, :computer_number, :time_in)";
+
+        $statement = $this->pdo->prepare($addTimeInQuery);
+
+        $statement->bindValue("name", $logData->name);
+        $statement->bindValue("student_id", $logData->student_id);
+        $statement->bindValue("computer_number", $logData->computer_number);
+        $statement->bindValue("time_in", $logData->time_in);
+
+        $statement->execute();
     }
 
     public function getAdminDataByUsername(Admin $adminData)
