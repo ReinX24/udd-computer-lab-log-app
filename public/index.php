@@ -14,11 +14,11 @@ $router->addGetRoute("/", [LogController::class, "index"]);
 
 $router->addGetRoute("/log/log_index", [LogController::class, "log_index"]);
 
-// TODO: create database for application
-// TODO: create a table in the index where it contains student-id, time-in, time-out, & computer number
+$router->addGetRoute("/log/log_add", [LogController::class, "log_add"]);
+$router->addPostRoute("/log/log_add", [LogController::class, "log_add"]);
 
-// $router->addGetRoute("/feedback/create", [FeedbackController::class, "feedback_create"]);
-// $router->addPostRoute("/feedback/create", [FeedbackController::class, "feedback_create"]);
+$router->addGetRoute("/log/add_student_id", [LogController::class, "add_student_id"]);
+$router->addPostRoute("/log/add_student_id", [LogController::class, "add_student_id"]);
 
 $router->addGetRoute("/log/admin_login", [AdminController::class, "admin_login"]);
 $router->addPostRoute("/log/admin_login", [AdminController::class, "admin_login"]);
