@@ -7,7 +7,7 @@ namespace app\controllers;
 use app\models\Feedback;
 use app\Router;
 use app\models\Admin;
-
+use app\models\Log;
 use \DateTime;
 
 class AdminController
@@ -57,6 +57,63 @@ class AdminController
             ]
         );
     }
+
+    // Start search log
+    public function admin_search_log(Router $router)
+    {
+        $this->check_logged_in();
+
+        $logData = [
+            "name" => null,
+            "student_id" => null,
+            "computer_number" => null,
+            "time_in" => null,
+            "time_out" => null,
+        ];
+
+        $log = new Log();
+        $matchedLogs = $log->getAllLogs();
+
+        if (isset($_GET["search_name"]) && !empty($_GET["search_name"])) {
+            // $matchedLogs = $log->getLogsByName($_GET["search_name"]);
+        }
+
+        if (isset($_GET["search_student_id"]) && !empty($_GET["search_student_id"])) {
+            echo "SEARCH BY NAME";
+            exit;
+        }
+
+        if (isset($_GET["search_student_id"]) && !empty($_GET["search_student_id"])) {
+            echo "SEARCH BY ID";
+            exit;
+        }
+
+        if (isset($_GET["search_month_and_year"]) && !empty($_GET["search_month_and_year"])) {
+            echo "SEARCH BY MONTH AND YEAR";
+            exit;
+        }
+
+        if (isset($_GET["search_date"]) && !empty($_GET["search_date"])) {
+            echo "SEARCH BY DATE";
+            exit;
+        }
+
+        // Getting the current dates for placeholders
+        $currentDate = new DateTime();
+        $currentYearMonth = $currentDate->format("Y-m");
+        $currentDayMonthYear = $currentDate->format("Y-m-d");
+
+        $router->renderView(
+            "admin/admin_search_log",
+            [
+                "currentPage" => "adminSearchLog",
+                "currentYearMonth" => $currentYearMonth,
+                "currentDayMonthYear" => $currentDayMonthYear,
+                "matchedLogs" => $matchedLogs
+            ]
+        );
+    }
+    // End search log
 
     public function admin_search(Router $router)
     {
@@ -269,6 +326,15 @@ class AdminController
 
         $admin = new Admin();
 
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            // Get id from GET request and get account
+            $id = (int) $_GET["id"];
+            $adminData = $admin->getAdminAccountById($id);
+
+            // Change password will be set to false
+            $adminData["changePassword"] = false;
+        }
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $adminData["id"] = (int) $_POST["id"];
             $adminData["username"] = $_POST["username"];
@@ -291,26 +357,6 @@ class AdminController
                 header("Location: /admin/accounts?account_success_edit=true");
                 exit;
             }
-
-            // If there are any errors, return the last entered data
-            $router->renderView(
-                "admin/admin_edit",
-                [
-                    "currentPage" => "adminAccounts",
-                    "adminData" => $adminData,
-                    "errors" => $errors
-                ]
-            );
-            exit;
-        }
-
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            // Get id from GET request and get account
-            $id = (int) $_GET["id"];
-            $adminData = $admin->getAdminAccountById($id);
-
-            // Change password will be set to false
-            $adminData["changePassword"] = false;
         }
 
         $router->renderView(
@@ -345,7 +391,6 @@ class AdminController
             $adminData["id"] = $id;
 
             $admin->load($adminData);
-
             $errors = $admin->deleteAdmin();
 
             if (empty($errors)) {
@@ -404,6 +449,11 @@ class AdminController
 
         $admin = new Admin();
 
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $adminData = $_SESSION["userLoginInfo"];
+            $adminData["changePassword"] = false;
+        }
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $adminData["id"] = $_SESSION["userLoginInfo"]["id"];
             $adminData["username"] = $_POST["username"];
@@ -422,11 +472,6 @@ class AdminController
                 // If there are no errors, logout the current account
                 $this->admin_logout($router);
             }
-        }
-
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            $adminData = $_SESSION["userLoginInfo"];
-            $adminData["changePassword"] = false;
         }
 
         $router->renderView(

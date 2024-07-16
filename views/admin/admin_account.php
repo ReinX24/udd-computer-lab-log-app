@@ -3,7 +3,7 @@
 <div class="container mt-4">
     <h1>Admin Credentials</h1>
 
-    <?php if (isset($_GET["account_success_edit"])): ?>
+    <?php if (isset($_GET["account_success_edit"])) : ?>
         <div class="alert alert-info alert-dismissible fade show fs-5 mt-4" role="alert">
             Successfully edited account!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -21,9 +21,9 @@
                 <td><?= $_SESSION["userLoginInfo"]["id"]; ?></td>
                 <td><?= $_SESSION["userLoginInfo"]["username"]; ?></td>
 
-                <?php if ($_SESSION["userLoginInfo"]["master_account"]): ?>
+                <?php if ($_SESSION["userLoginInfo"]["master_account"]) : ?>
                     <td class="text-success"><?= "true" ?></td>
-                <?php else: ?>
+                <?php else : ?>
                     <td class="text-danger"><?= "false" ?></td>
                 <?php endif; ?>
             </tr>

@@ -166,6 +166,18 @@ class Database
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAllLogs()
+    {
+        $selectAllQuery =
+            "SELECT * FROM lab_log ORDER BY created_at DESC";
+
+        $statement = $this->pdo->prepare($selectAllQuery);
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getAdminDataByUsername(Admin $adminData)
     {
         $getAdminQuery =

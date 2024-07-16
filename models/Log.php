@@ -135,6 +135,12 @@ class Log
         return $this->db->getLogDataById($this);
     }
 
+    public function getAllLogs()
+    {
+        return $this->db->getAllLogs();
+    }
+
+    // Helper methods
     private function validateStudentId(array $errors): array
     {
         // TODO: check if this validation works properly
