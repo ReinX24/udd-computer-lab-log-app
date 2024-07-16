@@ -14,9 +14,9 @@
                 </div>
             <?php endif; ?>
 
-            <?php if (isset($errors["invalidStudentId"])) : ?>
+            <?php if (isset($errors["invalidStudentIdError"])) : ?>
                 <div class="alert alert-danger fs-5 mt-4">
-                    <?= $errors["invalidStudentId"] ?>
+                    <?= $errors["invalidStudentIdError"] ?>
                 </div>
             <?php endif; ?>
         </div>

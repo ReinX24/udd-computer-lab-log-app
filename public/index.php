@@ -17,6 +17,12 @@ $router->addGetRoute("/log/log_index", [LogController::class, "log_index"]);
 $router->addGetRoute("/log/log_add", [LogController::class, "log_add"]);
 $router->addPostRoute("/log/log_add", [LogController::class, "log_add"]);
 
+$router->addGetRoute("/log/log_edit", [LogController::class, "log_edit"]);
+$router->addPostRoute("/log/log_edit", [LogController::class, "log_edit"]);
+
+// Only a POST route needed, deleted through a modal confirmation
+$router->addPostRoute("/log/log_delete", [LogController::class, "log_delete"]);
+
 $router->addGetRoute("/log/add_student_id", [LogController::class, "add_student_id"]);
 $router->addPostRoute("/log/add_student_id", [LogController::class, "add_student_id"]);
 

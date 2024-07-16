@@ -5,7 +5,7 @@
     <form action="/log/log_add" method="POST">
         <div class="mb-4">
             <label for="name" class="form-label fs-5">Name</label>
-            <input type="text" name="name" class="form-control form-control-lg" placeholder="Enter name here">
+            <input type="text" name="name" class="form-control form-control-lg" placeholder="Enter name here" value="<?= $logFormData["name"]; ?>">
 
             <?php if (isset($errors["noNameError"])) : ?>
                 <div class="alert alert-danger fs-5 mt-4">
@@ -16,12 +16,18 @@
 
         <div class="mb-4">
             <label for="student_id" class="form-label fs-5">Student ID (Optional)</label>
-            <input type="text" name="student_id" class="form-control form-control-lg" placeholder="Enter Student ID here (22-0365-456)">
+            <input type="text" name="student_id" class="form-control form-control-lg" placeholder="Enter Student ID here (22-0365-456)" value="<?= $logFormData["student_id"]; ?>">
+
+            <?php if (isset($errors["invalidStudentIdError"])) : ?>
+                <div class="alert alert-danger fs-5 mt-4">
+                    <?= $errors["invalidStudentIdError"] ?>
+                </div>
+            <?php endif; ?>
         </div>
 
         <div class="mb-4">
             <label for="computer_number" class="form-label fs-5">Computer Number</label>
-            <input type="number" name="computer_number" class="form-control form-control-lg" placeholder="Enter computer number here">
+            <input type="number" name="computer_number" class="form-control form-control-lg" placeholder="Enter computer number here" value="<?= $logFormData["computer_number"] ?>">
 
             <?php if (isset($errors["noComputerNumberError"])) : ?>
                 <div class="alert alert-danger fs-5 mt-4">
@@ -30,9 +36,8 @@
             <?php endif; ?>
         </div>
 
-        <!-- TODO: show when PM, only shows AM at the moment -->
         <div class="mb-4">
-            <label for="time_in" class="form-label fs-5">Time-In</label>
+            <label for="time_in" class="form-label fs-5">Time-In (Current Time)</label>
             <input type="time" name="time_in" class="form-control form-control-lg" value="<?= date("H:i"); ?>" readonly>
         </div>
 

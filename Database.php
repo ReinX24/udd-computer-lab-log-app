@@ -105,6 +105,52 @@ class Database
         $statement->execute();
     }
 
+    public function getLogDataById(Log $logData)
+    {
+        $getLogQuery =
+            "SELECT
+                *
+            FROM
+                lab_log
+            WHERE
+                id = :id";
+
+        $statement = $this->pdo->prepare($getLogQuery);
+
+        $statement->bindValue("id", $logData->id);
+
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateLogDataById(Log $logData)
+    {
+        $updateLogQuery =
+            "UPDATE
+                lab_log
+            SET
+                name = :name,
+                student_id = :student_id,
+                computer_number = :computer_number,
+                time_in = :time_in,
+                time_out = :time_out
+            WHERE
+                id = :id";
+
+        $statement = $this->pdo->prepare($updateLogQuery);
+
+        $statement->bindValue("name", $logData->name);
+        $statement->bindValue("student_id", $logData->student_id);
+        $statement->bindValue("computer_number", $logData->computer_number);
+        $statement->bindValue("time_in", $logData->time_in);
+        $statement->bindValue("time_out", $logData->time_out);
+
+        $statement->bindValue("id", $logData->id);
+
+        $statement->execute();
+    }
+
     public function getAdminDataByUsername(Admin $adminData)
     {
         $getAdminQuery =

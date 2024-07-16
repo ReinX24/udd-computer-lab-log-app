@@ -14,7 +14,7 @@
         Remember to time-out after using a computer.
     </div>
 
-    <table class="table table-bordered fs-5">
+    <table class="table table-striped fs-5">
         <thead>
             <tr>
                 <th scope="col">Name</th>
@@ -36,11 +36,9 @@
                         <td><?= $eachLog["student_id"]; ?></td>
                     <?php else : ?>
                         <td>
-                            <div class="d-flex justify-content-center">
-                                <a href="/log/add_student_id?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"] ?>" class="btn btn-secondary btn-lg">
-                                    Add Student ID
-                                </a>
-                            </div>
+                            <a href="/log/add_student_id?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"] ?>" class="btn btn-secondary btn-lg">
+                                Add Student ID
+                            </a>
                         </td>
                     <?php endif; ?>
 
@@ -52,25 +50,53 @@
                         <td><?= date("h:i:s A / m-d-Y", strtotime($eachLog["time_out"])); ?></td>
                     <?php else : ?>
                         <td>
-                            <div class="d-flex justify-content-center">
-                                <a href="/log/add_time_out?name=<?= $eachLog["name"]; ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg">Add Time-Out</a>
-                            </div>
+                            <a href="/log/add_time_out?name=<?= $eachLog["name"]; ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg">Add Time-Out</a>
                         </td>
                     <?php endif; ?>
 
                     <!-- Edit or delete -->
                     <td>
                         <div class="d-flex justify-content-center gap-2">
-                            <!-- TODO: add edit feature -->
+                            <!-- TODO: test edit feature -->
                             <!-- TODO: add delete feature -->
-                            <a href="/log/edit_log" class="btn btn-secondary btn-lg w-50"><i class="bi bi-pencil-square"></i></a>
-                            <a href="/log/delete_log" class="btn btn-danger btn-lg w-50"><i class="bi bi-trash"></i></a>
+                            <a href="/log/log_edit?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg w-50"><i class="bi bi-pencil-square"></i></a>
+                            <!-- <a href="/log/log_delete" class="btn btn-danger btn-lg w-50"><i class="bi bi-trash"></i></a> -->
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger btn-lg w-50" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $eachLog["id"]; ?>">
+                                <i class="bi bi-trash"></i>
+                            </button>
                         </div>
+
+                        <!-- Delete -->
+                        <div class="modal fade" id="deleteModal<?= $eachLog["id"]; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Modal</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body fs-5">
+                                        Are you sure you want to delete log of <?= $eachLog["name"]; ?>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
+                                        <!-- Delete log by passing in the id -->
+                                        <form action="/log/log_delete" method="POST">
+                                            <input type="hidden" name="id" value="<?= $eachLog["id"]; ?>">
+                                            <button type="submit" class="btn btn-danger btn-lg">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of delete modal -->
+
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 </div>
+
 
 <?php require_once "includes/log_footer.php"; ?>
