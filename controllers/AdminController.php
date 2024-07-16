@@ -328,34 +328,46 @@ class AdminController
     {
         $this->check_master_logged_in();
 
+        $errors = [];
+
         $adminData = [
             "id" => ""
         ];
 
         $admin = new Admin();
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $adminData["id"] = $_POST["id"];
-
-            $admin->load($adminData);
-            $admin->deleteAdmin();
-
-            // If the current user is the one being deleted, return to index
-            if ($_SESSION["userLoginInfo"]["id"] == $_POST["id"]) {
-                $this->admin_logout($router);
-            }
-
-            header("Location: /admin/accounts?account_success_delete=true");
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $id = (int) $_GET["id"];
         }
 
-        $id = (int) $_GET["id"];
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = (int) $_POST["id"];
+            $adminData["id"] = $id;
+
+            $admin->load($adminData);
+
+            $errors = $admin->deleteAdmin();
+
+            if (empty($errors)) {
+                // If the current user is the one being deleted, return to index
+                if ($_SESSION["userLoginInfo"]["id"] == $_POST["id"]) {
+                    $this->admin_logout($router);
+                }
+
+                // Go to the accounts page with success message
+                header("Location: /admin/accounts?account_success_delete=true");
+            }
+        }
+
+        // Get the admin account info by their id
         $adminData = $admin->getAdminAccountById($id);
 
         $router->renderView(
             "admin/admin_delete",
             [
                 "currentPage" => "adminAccounts",
-                "adminData" => $adminData
+                "adminData" => $adminData,
+                "errors" => $errors
             ]
         );
     }

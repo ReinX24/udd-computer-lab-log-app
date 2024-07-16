@@ -2,11 +2,18 @@
 
 <div class="container mt-4">
     <h1>Are you sure you want to delete this account?</h1>
-    <?php if ($_SESSION["userLoginInfo"]["id"] == $adminData["id"]): ?>
+    <?php if ($_SESSION["userLoginInfo"]["id"] == $adminData["id"]) : ?>
         <div class="alert alert-danger mt-4 fs-5">
             This will delete the current account!
         </div>
     <?php endif; ?>
+
+    <?php if (isset($errors["adminDeleteDenied"])) : ?>
+        <div class="alert alert-danger mt-4 fs-5">
+            <?= $errors["adminDeleteDenied"] ?>
+        </div>
+    <?php endif; ?>
+
     <hr>
     <table class="table table-bordered table-striped mt-4 fs-5">
         <thead>
@@ -19,9 +26,9 @@
                 <td><?= $adminData["id"]; ?></td>
                 <td><?= $adminData["username"]; ?></td>
 
-                <?php if ($adminData["master_account"]): ?>
+                <?php if ($adminData["master_account"]) : ?>
                     <td class="text-success"><?= "true" ?></td>
-                <?php else: ?>
+                <?php else : ?>
                     <td class="text-danger"><?= "false" ?></td>
                 <?php endif; ?>
             </tr>

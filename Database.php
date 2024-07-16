@@ -27,28 +27,6 @@ class Database
         self::$db = $this;
     }
 
-    public function getCurrentDayLogs($currentDate)
-    {
-        $getCurrentDayLogsQuery =
-            "SELECT 
-                * 
-            FROM
-                lab_log
-            WHERE
-                :currentDate = CAST(created_at as DATE)
-            ORDER BY
-                created_at
-            ASC";
-
-        $statement = $this->pdo->prepare($getCurrentDayLogsQuery);
-
-        $statement->bindValue("currentDate", $currentDate);
-
-        $statement->execute();
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public function addTimeInLog(Log $logData)
     {
         $addTimeInQuery =
@@ -105,25 +83,6 @@ class Database
         $statement->execute();
     }
 
-    public function getLogDataById(Log $logData)
-    {
-        $getLogQuery =
-            "SELECT
-                *
-            FROM
-                lab_log
-            WHERE
-                id = :id";
-
-        $statement = $this->pdo->prepare($getLogQuery);
-
-        $statement->bindValue("id", $logData->id);
-
-        $statement->execute();
-
-        return $statement->fetch(PDO::FETCH_ASSOC);
-    }
-
     public function updateLogDataById(Log $logData)
     {
         $updateLogQuery =
@@ -149,6 +108,62 @@ class Database
         $statement->bindValue("id", $logData->id);
 
         $statement->execute();
+    }
+
+    public function deleteLogDataById(Log $logData)
+    {
+        $deleteLogQuery =
+            "DELETE FROM
+                lab_log
+            WHERE
+                id = :id";
+
+        $statement = $this->pdo->prepare($deleteLogQuery);
+
+        $statement->bindValue("id", $logData->id);
+
+        $statement->execute();
+    }
+
+    public function getLogDataById(Log $logData)
+    {
+        $getLogQuery =
+            "SELECT
+                *
+            FROM
+                lab_log
+            WHERE
+                id = :id";
+
+        $statement = $this->pdo->prepare($getLogQuery);
+
+        $statement->bindValue("id", $logData->id);
+
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getCurrentDayLogs($currentDate)
+    {
+        $getCurrentDayLogsQuery =
+            "SELECT 
+                * 
+            FROM
+                lab_log
+            WHERE
+                :currentDate = CAST(created_at as DATE)
+            ORDER BY
+                created_at
+            ASC";
+
+        $statement = $this->pdo->prepare($getCurrentDayLogsQuery);
+
+        $statement->bindValue("currentDate", $currentDate);
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getAdminDataByUsername(Admin $adminData)

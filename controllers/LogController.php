@@ -198,10 +198,18 @@ class LogController
 
     public function log_delete(Router $router)
     {
-        // TODO: implement delete functionality
-        echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";
-        exit;
+        $logData = [
+            "id" => null,
+        ];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $logData["id"] = $_POST["id"];
+
+            $log = new Log();
+            $log->load($logData);
+            $log->deleteLogDataById();
+
+            header("Location: /log/log_index");
+        }
     }
 }

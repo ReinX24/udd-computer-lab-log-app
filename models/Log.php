@@ -120,6 +120,11 @@ class Log
         return $errors;
     }
 
+    public function deleteLogDataById()
+    {
+        $this->db->deleteLogDataById($this);
+    }
+
     public function getCurrentDayLogs($currentDate)
     {
         return $this->db->getCurrentDayLogs($currentDate);

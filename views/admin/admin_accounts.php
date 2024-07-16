@@ -9,27 +9,34 @@
 <div class="container mt-4">
     <h1>Admin Accounts</h1>
 
-    <?php if ($_SESSION["userLoginInfo"]["master_account"]): ?>
+    <?php if ($_SESSION["userLoginInfo"]["master_account"]) : ?>
         <a href="/admin/accounts/add" class="btn btn-primary btn-lg">
             Add Account
         </a>
     <?php endif; ?>
 
-    <?php if (isset($_GET["account_success_add"])): ?>
+    <?php if (isset($_GET["account_success_add"])) : ?>
         <div class="alert alert-success alert-dismissible fade show fs-5 mt-4" role="alert">
             Successfully added account!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
 
-    <?php if (isset($_GET["account_success_edit"])): ?>
+    <?php if (isset($_GET["admin_account_delete_unsuccessful"])) : ?>
+        <div class="alert alert-warning alert-dismissible fade show fs-5 mt-4" role="alert">
+            Cannot delete master account!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET["account_success_edit"])) : ?>
         <div class="alert alert-info alert-dismissible fade show fs-5 mt-4" role="alert">
             Successfully edited account!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
 
-    <?php if (isset($_GET["account_success_delete"])): ?>
+    <?php if (isset($_GET["account_success_delete"])) : ?>
         <div class="alert alert-danger alert-dismissible fade show fs-5 mt-4" role="alert">
             Successfully deleted account!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -40,24 +47,24 @@
         <thead>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <?php if ($_SESSION["userLoginInfo"]["master_account"]): ?>
+            <?php if ($_SESSION["userLoginInfo"]["master_account"]) : ?>
                 <th scope="col">Master Account</th>
                 <th scope="col">Operations</th>
             <?php endif; ?>
         </thead>
         <tbody>
-            <?php foreach ($adminData as $admin): ?>
+            <?php foreach ($adminData as $admin) : ?>
                 <tr>
-                    <?php if ($_SESSION["userLoginInfo"]["master_account"]): ?>
+                    <?php if ($_SESSION["userLoginInfo"]["master_account"]) : ?>
                         <td><?= $admin["id"]; ?></td>
 
                         <td><?= $admin["username"]; ?>
                             <?= $_SESSION["userLoginInfo"]["username"] == $admin["username"] ? "(current)" : ""; ?>
                         </td>
 
-                        <?php if ($admin["master_account"]): ?>
+                        <?php if ($admin["master_account"]) : ?>
                             <td class="text-success"><?= "true" ?></td>
-                        <?php else: ?>
+                        <?php else : ?>
                             <td class="text-danger"><?= "false" ?></td>
                         <?php endif; ?>
 
@@ -67,7 +74,7 @@
                                 <a href="/admin/accounts/edit?id=<?= $admin["id"]; ?>" class="btn btn-secondary btn-lg">Edit</a>
                             </div>
                         </td>
-                    <?php else: ?>
+                    <?php else : ?>
                         <td><?= $admin["id"]; ?></td>
                         <td><?= $admin["username"]; ?>
                             <?= $_SESSION["userLoginInfo"]["username"] == $admin["username"] ? "(current)" : ""; ?>

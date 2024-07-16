@@ -43,11 +43,11 @@
                     <?php endif; ?>
 
                     <td><?= $eachLog["computer_number"]; ?></td>
-                    <td><?= date("h:i:s A / m-d-Y", strtotime($eachLog["time_in"])); ?></td>
+                    <td><?= date("h:i A", strtotime($eachLog["time_in"])); ?></td>
 
                     <!-- Time-out -->
                     <?php if ($eachLog["time_out"]) : ?>
-                        <td><?= date("h:i:s A / m-d-Y", strtotime($eachLog["time_out"])); ?></td>
+                        <td><?= date("h:i A", strtotime($eachLog["time_out"])); ?></td>
                     <?php else : ?>
                         <td>
                             <a href="/log/add_time_out?name=<?= $eachLog["name"]; ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg">Add Time-Out</a>
@@ -58,10 +58,8 @@
                     <td>
                         <div class="d-flex justify-content-center gap-2">
                             <!-- TODO: test edit feature -->
-                            <!-- TODO: add delete feature -->
                             <a href="/log/log_edit?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg w-50"><i class="bi bi-pencil-square"></i></a>
-                            <!-- <a href="/log/log_delete" class="btn btn-danger btn-lg w-50"><i class="bi bi-trash"></i></a> -->
-                            <!-- Button trigger modal -->
+                            <!-- Delete trigger modal -->
                             <button type="button" class="btn btn-danger btn-lg w-50" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $eachLog["id"]; ?>">
                                 <i class="bi bi-trash"></i>
                             </button>

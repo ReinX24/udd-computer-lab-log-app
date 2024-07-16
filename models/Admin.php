@@ -166,6 +166,18 @@ class Admin
             $errors["wrongPasswordError"] = "Wrong password!";
         }
 
+        // If the current admin is not the original master account and they are 
+        // trying to edit the original master_account, deny action
+        if ($_SESSION["userLoginInfo"]["id"] !== 1 && $this->id == 1) {
+            $errors["adminEditDenied"] = "Edit Denied!";
+        }
+
+        // If the original master account tries to remove their account 
+        // privileges, deny action
+        if ($_SESSION["userLoginInfo"]["id"] == 1 && !$this->master_account) {
+            $errors["adminEditDenied"] = "Edit Denied!";
+        }
+
         // If the user decides to change their password, check for errors
         if ($this->changePassword) {
             if (!$this->passwordNew) {
@@ -206,7 +218,7 @@ class Admin
         // DONE: make it where the admin account is non deleteable
         // Cannot delete the admin account with an id of 1
         if ($this->id == 1) {
-            $errors["adminDeleteDenied"] = "Cannot delete admin account!";
+            $errors["adminDeleteDenied"] = "Delete Denied!";
         }
 
         if (empty($errors)) {

@@ -3,11 +3,11 @@
 <div class="container mt-4">
     <h1>Are you sure you want delete the current account?</h1>
     <hr>
-    <?php if (isset($errors["adminDeleteDenied"])): ?>
+    <?php if (isset($errors["adminDeleteDenied"])) : ?>
         <div class="alert alert-danger mt-4 fs-5">
-            Cannot delete admin account!
+            <?= $errors["adminDeleteDenied"]; ?>
         </div>
-    <?php else: ?>
+    <?php else : ?>
         <div class="alert alert-danger mt-4 fs-5">
             This will delete the current account permanently!
         </div>
@@ -24,9 +24,9 @@
                 <td><?= $_SESSION["userLoginInfo"]["id"]; ?></td>
                 <td><?= $_SESSION["userLoginInfo"]["username"]; ?></td>
 
-                <?php if ($_SESSION["userLoginInfo"]["master_account"]): ?>
+                <?php if ($_SESSION["userLoginInfo"]["master_account"]) : ?>
                     <td class="text-success"><?= "true" ?></td>
-                <?php else: ?>
+                <?php else : ?>
                     <td class="text-danger"><?= "false" ?></td>
                 <?php endif; ?>
             </tr>
