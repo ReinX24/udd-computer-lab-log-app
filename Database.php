@@ -204,8 +204,29 @@ class Database
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getLogsByDateTimeIn()
+    public function getLogsByDateTimeIn(Log $logData)
     {
+        $getLogsDateQuery =
+            "SELECT
+                *
+            FROM
+                lab_log
+            WHERE
+                MONTH(time_in) = :month
+            AND
+                DAY(time_in) = :day
+            AND
+                YEAR(time_in) = :year";
+
+        $statement = $this->pdo->prepare($getLogsDateQuery);
+
+        $statement->bindValue(":month", (int) date("m", strtotime($logData->time_in)));
+        $statement->bindValue(":day", (int) date("d", strtotime($logData->time_in)));
+        $statement->bindValue(":year", (int) date("Y", strtotime($logData->time_in)));
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getCurrentDayLogs($currentDate)

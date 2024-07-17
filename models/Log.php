@@ -141,12 +141,21 @@ class Log
 
     public function getLogsByStudentId()
     {
-        return $this->db->getLogsByStudentId($this);
+        $errors = [];
+
+        if (empty($errors)) {
+            return $this->db->getLogsByStudentId($this);
+        }
     }
 
     public function getLogsByMonthYearTimeIn()
     {
         return $this->db->getLogsByMonthYearTimeIn($this);
+    }
+
+    public function getLogsByDateTimeIn()
+    {
+        return $this->db->getLogsByDateTimeIn($this);
     }
 
     public function getAllLogs()

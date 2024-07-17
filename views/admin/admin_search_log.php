@@ -34,6 +34,12 @@
         </div>
     </form>
 
+    <div class="d-flex mb-4">
+        <a href="/admin/search_log" class="btn btn-danger btn-lg w-100">
+            Reset
+        </a>
+    </div>
+
     <?php if (!empty($matchedLogs)) : ?>
         <table class="table table-striped fs-5">
             <thead>
@@ -59,7 +65,7 @@
                             <td><?= $eachLog["student_id"]; ?></td>
                         <?php else : ?>
                             <td>
-                                <a href="/log/add_student_id?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"] ?>" class="btn btn-secondary btn-lg">
+                                <a href="/admin/search_log/add_student_id?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"] ?>" class="btn btn-secondary btn-lg">
                                     Add Student ID
                                 </a>
                             </td>
@@ -70,10 +76,10 @@
 
                         <!-- Time-out -->
                         <?php if ($eachLog["time_out"]) : ?>
-                            <td><?= date("h:i:s A / m-d-Y", strtotime($eachLog["time_out"])); ?></td>
+                            <td><?= date("h:i:s A m-d-Y", strtotime($eachLog["time_out"])); ?></td>
                         <?php else : ?>
                             <td>
-                                <a href="/log/add_time_out?name=<?= $eachLog["name"]; ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg">Add Time-Out</a>
+                                <a href="/admin/search_log/add_time_out?name=<?= $eachLog["name"]; ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg">Add Time-Out</a>
                             </td>
                         <?php endif; ?>
 
@@ -83,7 +89,7 @@
                         <td>
                             <div class="d-flex justify-content-center gap-2">
                                 <!-- TODO: test edit feature -->
-                                <a href="/log/log_edit?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg w-50"><i class="bi bi-pencil-square"></i></a>
+                                <a href="/admin/search_log/log_edit?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg w-50"><i class="bi bi-pencil-square"></i></a>
                                 <!-- Delete trigger modal -->
                                 <button type="button" class="btn btn-danger btn-lg w-50" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $eachLog["id"]; ?>">
                                     <i class="bi bi-trash"></i>

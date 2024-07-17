@@ -36,6 +36,17 @@ $router->addGetRoute("/admin/dashboard", [AdminController::class, "admin_dashboa
 
 $router->addGetRoute("/admin/search_log", [AdminController::class, "admin_search_log"]);
 
+//* DONE: add student_id for admin
+$router->addGetRoute("/admin/search_log/add_student_id", [AdminController::class, "add_student_id"]);
+$router->addPostRoute("/admin/search_log/add_student_id", [AdminController::class, "add_student_id"]);
+
+//* DONE: add time_out for admin here
+$router->addGetRoute("/admin/search_log/add_time_out", [AdminController::class, "add_time_out"]);
+$router->addPostRoute("/admin/search_log/add_time_out", [AdminController::class, "add_time_out"]);
+
+// TODO: add edit for admin
+// TODO: add delete for admin
+
 $router->addGetRoute("/admin/search", [AdminController::class, "admin_search"]);
 
 $router->addGetRoute("/admin/search/details", [AdminController::class, "admin_search_details"]);

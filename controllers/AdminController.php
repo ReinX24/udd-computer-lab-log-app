@@ -94,9 +94,9 @@ class AdminController
         }
 
         if (isset($_GET["search_date"]) && !empty($_GET["search_date"])) {
-            // TODO: finish implementing search by date
-            echo "SEARCH BY DATE";
-            exit;
+            $logData["time_in"] = $_GET["search_date"];
+            $log->load($logData);
+            $matchedLogs = $log->getLogsByDateTimeIn();
         }
 
         // Getting the current dates for placeholders
@@ -114,8 +114,72 @@ class AdminController
             ]
         );
     }
+
+    public function add_student_id(Router $router)
+    {
+        $errors = [];
+
+        $logFormData = [
+            "id" => $_GET["id"] ?? null,
+            "name" => $_GET["name"] ?? null,
+            "student_id" => null
+        ];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $logFormData["id"] = $_POST["id"];
+            $logFormData["name"] = $_POST["name"];
+            $logFormData["student_id"] = $_POST["student_id"];
+
+            $log = new Log();
+            $log->load($logFormData);
+            $errors = $log->addStudentId();
+
+            if (empty($errors)) {
+                header("Location: /admin/search_log");
+                exit;
+            }
+        }
+
+        $router->renderView(
+            "admin/add_student_id",
+            [
+                "currentPage" => "adminSearchLog",
+                "logFormData" => $logFormData,
+                "errors" => $errors
+            ]
+        );
+    }
+
+    public function add_time_out(Router $router)
+    {
+        $logFormData = [
+            "id" => $_GET["id"] ?? null,
+            "name" => $_GET["name"] ?? null,
+            "time_out" => null
+        ];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $logFormData["id"] = $_POST["id"];
+            $logFormData["time_out"] = date("Y-m-d H:i:s");
+
+            $log = new Log();
+            $log->load($logFormData);
+            $log->addTimeOut();
+
+            header("Location: /admin/search_log");
+            exit;
+        }
+
+        $router->renderView(
+            "admin/add_time_out",
+            [
+                "currentPage" => "adminSearchLog",
+            ]
+        );
+    }
     // End search log
 
+    // Feedback search
     public function admin_search(Router $router)
     {
         $this->check_logged_in();
@@ -250,6 +314,7 @@ class AdminController
             ]
         );
     }
+    // End of Feedback search
 
     public function admin_accounts(Router $router)
     {
