@@ -37,10 +37,10 @@ class Database
 
         $statement = $this->pdo->prepare($addTimeInQuery);
 
-        $statement->bindValue("name", $logData->name);
-        $statement->bindValue("student_id", $logData->student_id);
-        $statement->bindValue("computer_number", $logData->computer_number);
-        $statement->bindValue("time_in", $logData->time_in);
+        $statement->bindValue(":name", $logData->name);
+        $statement->bindValue(":student_id", $logData->student_id);
+        $statement->bindValue(":computer_number", $logData->computer_number);
+        $statement->bindValue(":time_in", $logData->time_in);
 
         $statement->execute();
     }
@@ -58,8 +58,8 @@ class Database
 
         $statement = $this->pdo->prepare($addTimeOutQuery);
 
-        $statement->bindValue("time_out", $logData->time_out);
-        $statement->bindValue("id", $logData->id);
+        $statement->bindValue(":time_out", $logData->time_out);
+        $statement->bindValue(":id", $logData->id);
 
         $statement->execute();
     }
@@ -77,8 +77,8 @@ class Database
 
         $statement = $this->pdo->prepare($addStudentIdQuery);
 
-        $statement->bindValue("student_id", $logData->student_id);
-        $statement->bindValue("id", $logData->id);
+        $statement->bindValue(":student_id", $logData->student_id);
+        $statement->bindValue(":id", $logData->id);
 
         $statement->execute();
     }
@@ -99,13 +99,13 @@ class Database
 
         $statement = $this->pdo->prepare($updateLogQuery);
 
-        $statement->bindValue("name", $logData->name);
-        $statement->bindValue("student_id", $logData->student_id);
-        $statement->bindValue("computer_number", $logData->computer_number);
-        $statement->bindValue("time_in", $logData->time_in);
-        $statement->bindValue("time_out", $logData->time_out);
+        $statement->bindValue(":name", $logData->name);
+        $statement->bindValue(":student_id", $logData->student_id);
+        $statement->bindValue(":computer_number", $logData->computer_number);
+        $statement->bindValue(":time_in", $logData->time_in);
+        $statement->bindValue(":time_out", $logData->time_out);
 
-        $statement->bindValue("id", $logData->id);
+        $statement->bindValue(":id", $logData->id);
 
         $statement->execute();
     }
@@ -120,7 +120,7 @@ class Database
 
         $statement = $this->pdo->prepare($deleteLogQuery);
 
-        $statement->bindValue("id", $logData->id);
+        $statement->bindValue(":id", $logData->id);
 
         $statement->execute();
     }
@@ -137,11 +137,75 @@ class Database
 
         $statement = $this->pdo->prepare($getLogQuery);
 
-        $statement->bindValue("id", $logData->id);
+        $statement->bindValue(":id", $logData->id);
 
         $statement->execute();
 
         return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getLogsByName(Log $logdata)
+    {
+        $getByNameQuery =
+            "SELECT
+                *
+            FROM
+                lab_log
+            WHERE
+                name
+            LIKE
+                :name
+            ORDER BY
+                created_at
+            DESC";
+
+        $statement = $this->pdo->prepare($getByNameQuery);
+
+        $statement->bindValue(":name", "%$logdata->name%");
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getLogsByStudentId(Log $logData)
+    {
+        $getByStudentIdQuery =
+            "SELECT * FROM lab_log WHERE student_id = :student_id";
+
+        $statement = $this->pdo->prepare($getByStudentIdQuery);
+
+        $statement->bindValue(":student_id", $logData->student_id);
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getLogsByMonthYearTimeIn(Log $logData)
+    {
+        $getLogsMonthYearQuery =
+            "SELECT
+                *
+            FROM
+                lab_log
+            WHERE
+                MONTH(time_in) = :month
+            AND
+                YEAR(time_in) = :year";
+
+        $statement = $this->pdo->prepare($getLogsMonthYearQuery);
+
+        $statement->bindValue(":month", (int) date("m", strtotime($logData->time_in)));
+        $statement->bindValue(":year", (int) date("Y", strtotime($logData->time_in)));
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getLogsByDateTimeIn()
+    {
     }
 
     public function getCurrentDayLogs($currentDate)

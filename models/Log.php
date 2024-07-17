@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace app\models;
 
 use app\Database;
-use DateTime;
 
 class Log
 {
@@ -133,6 +132,21 @@ class Log
     public function getLogDataById()
     {
         return $this->db->getLogDataById($this);
+    }
+
+    public function getLogsByName()
+    {
+        return $this->db->getLogsByName($this);
+    }
+
+    public function getLogsByStudentId()
+    {
+        return $this->db->getLogsByStudentId($this);
+    }
+
+    public function getLogsByMonthYearTimeIn()
+    {
+        return $this->db->getLogsByMonthYearTimeIn($this);
     }
 
     public function getAllLogs()

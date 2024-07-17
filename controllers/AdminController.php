@@ -75,25 +75,26 @@ class AdminController
         $matchedLogs = $log->getAllLogs();
 
         if (isset($_GET["search_name"]) && !empty($_GET["search_name"])) {
-            // $matchedLogs = $log->getLogsByName($_GET["search_name"]);
+            $logData["name"] = $_GET["search_name"];
+            $log->load($logData);
+            $matchedLogs = $log->getLogsByName();
         }
 
         if (isset($_GET["search_student_id"]) && !empty($_GET["search_student_id"])) {
-            echo "SEARCH BY NAME";
-            exit;
-        }
-
-        if (isset($_GET["search_student_id"]) && !empty($_GET["search_student_id"])) {
-            echo "SEARCH BY ID";
-            exit;
+            // TODO: check if the student_id is a valid id
+            $logData["student_id"] = $_GET["search_student_id"];
+            $log->load($logData);
+            $matchedLogs = $log->getLogsByStudentId();
         }
 
         if (isset($_GET["search_month_and_year"]) && !empty($_GET["search_month_and_year"])) {
-            echo "SEARCH BY MONTH AND YEAR";
-            exit;
+            $logData["time_in"] = $_GET["search_month_and_year"];
+            $log->load($logData);
+            $matchedLogs = $log->getLogsByMonthYearTimeIn();
         }
 
         if (isset($_GET["search_date"]) && !empty($_GET["search_date"])) {
+            // TODO: finish implementing search by date
             echo "SEARCH BY DATE";
             exit;
         }

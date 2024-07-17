@@ -43,7 +43,7 @@
 
         <div class="mb-4">
             <label for="time_in" class="form-label fs-5">Time-In</label>
-            <input type="time" name="time_in" class="form-control form-control-lg" value="<?= date("H:i", strtotime($logFormData["time_in"])); ?>">
+            <input type="time" name="time_in" class="form-control form-control-lg" value="<?= date("H:i", strtotime($logFormData["time_in"])); ?>" readonly>
 
             <?php if (isset($errors["invalidTimeInError"])) : ?>
                 <div class="alert alert-danger fs-5 mt-4">
