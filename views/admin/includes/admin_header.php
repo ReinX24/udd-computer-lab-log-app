@@ -14,9 +14,9 @@
                     <li>
                         <a class="nav-link <?= $currentPage == "adminSearchLog" ? "active" : ""; ?>" href="/admin/search_log">Search Log</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a class="nav-link <?= $currentPage == "adminSearch" ? "active" : ""; ?>" href="/admin/search">Search Feedback</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a class="nav-link <?= $currentPage == "adminAccounts" ? "active" : ""; ?>" href="/admin/accounts">Admin Accounts</a>
                     </li>

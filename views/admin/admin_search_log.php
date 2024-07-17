@@ -110,7 +110,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
                                             <!-- Delete log by passing in the id -->
-                                            <form action="/log/log_delete" method="POST">
+                                            <form action="/admin/search_log/log_delete" method="POST">
                                                 <input type="hidden" name="id" value="<?= $eachLog["id"]; ?>">
                                                 <button type="submit" class="btn btn-danger btn-lg">Delete</button>
                                             </form>
