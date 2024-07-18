@@ -1,0 +1,6 @@
+```Time-in Page```
+- Time-in
+- Add Student ID
+- Add Time-out
+- Edit Log
+- Delete Log

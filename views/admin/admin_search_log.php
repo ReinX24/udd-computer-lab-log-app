@@ -17,6 +17,12 @@
         </div>
     </form>
 
+    <?php if (isset($errors["invalidStudentIdError"])) : ?>
+        <div class="alert alert-danger fs-5" role="alert">
+            Invalid Student ID.
+        </div>
+    <?php endif; ?>
+
     <hr>
 
     <h2>Search Time-In</h2>
@@ -88,7 +94,6 @@
                         <!-- Edit or delete -->
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <!-- TODO: test edit feature -->
                                 <a href="/admin/search_log/log_edit?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg w-50"><i class="bi bi-pencil-square"></i></a>
                                 <!-- Delete trigger modal -->
                                 <button type="button" class="btn btn-danger btn-lg w-50" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $eachLog["id"]; ?>">

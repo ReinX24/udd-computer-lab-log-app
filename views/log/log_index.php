@@ -57,7 +57,6 @@
                     <!-- Edit or delete -->
                     <td>
                         <div class="d-flex justify-content-center gap-2">
-                            <!-- TODO: test edit feature -->
                             <a href="/log/log_edit?name=<?= $eachLog["name"] ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg w-50"><i class="bi bi-pencil-square"></i></a>
                             <!-- Delete trigger modal -->
                             <button type="button" class="btn btn-danger btn-lg w-50" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $eachLog["id"]; ?>">

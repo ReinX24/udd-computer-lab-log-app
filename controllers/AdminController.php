@@ -62,6 +62,8 @@ class AdminController
     {
         $this->check_logged_in();
 
+        $errors = [];
+
         $logData = [
             "name" => null,
             "student_id" => null,
@@ -83,7 +85,16 @@ class AdminController
             // TODO: check if the student_id is a valid id
             $logData["student_id"] = $_GET["search_student_id"];
             $log->load($logData);
-            $matchedLogs = $log->getLogsByStudentId();
+
+            // Check for any errors
+            $errors = $log->validateStudentId($errors);
+
+            // If there are errors, set matchedLogs to null
+            if (!empty($errors)) {
+                $matchedLogs = null;
+            } else {
+                $matchedLogs = $log->getLogsByStudentId();
+            }
         }
 
         if (isset($_GET["search_month_and_year"]) && !empty($_GET["search_month_and_year"])) {
@@ -109,7 +120,8 @@ class AdminController
                 "currentPage" => "adminSearchLog",
                 "currentYearMonth" => $currentYearMonth,
                 "currentDayMonthYear" => $currentDayMonthYear,
-                "matchedLogs" => $matchedLogs
+                "matchedLogs" => $matchedLogs,
+                "errors" => $errors
             ]
         );
     }

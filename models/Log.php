@@ -141,11 +141,7 @@ class Log
 
     public function getLogsByStudentId()
     {
-        $errors = [];
-
-        if (empty($errors)) {
-            return $this->db->getLogsByStudentId($this);
-        }
+        return $this->db->getLogsByStudentId($this);
     }
 
     public function getLogsByMonthYearTimeIn()
@@ -164,7 +160,7 @@ class Log
     }
 
     // Helper methods
-    private function validateStudentId(array $errors): array
+    public function validateStudentId(array $errors): array
     {
         // TODO: check if this validation works properly
         if (!empty($this->student_id)) {
