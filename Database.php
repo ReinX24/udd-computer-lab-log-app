@@ -16,7 +16,7 @@ class Database
     public function __construct()
     {
         $this->pdo = new PDO(
-            "mysql:host=localhost;port=3306;dbname=lab_log_app",
+            "mysql:host=localhost;port=3306;dbname=log_app",
             "root",
             ""
         );

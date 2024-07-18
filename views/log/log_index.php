@@ -28,8 +28,7 @@
         <tbody>
             <?php foreach ($currentDayLogs as $eachLog) : ?>
                 <tr>
-                    <!-- <th scope="row"><?= $eachLog["id"]; ?></th> -->
-                    <td><?= $eachLog["name"]; ?></td>
+                    <th><?= $eachLog["name"]; ?></th>
 
                     <!-- Student ID -->
                     <?php if ($eachLog["student_id"]) : ?>
