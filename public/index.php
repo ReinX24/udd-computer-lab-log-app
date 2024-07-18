@@ -7,9 +7,7 @@ use app\Router;
 use app\controllers\FeedbackController;
 use app\controllers\AdminController;
 
-// FEEDBACK_VERSION
-// TODO: make different databases 
-
+// FEEDBACK_APP
 $router = new Router();
 
 $router->addGetRoute("/", [FeedbackController::class, "index"]);

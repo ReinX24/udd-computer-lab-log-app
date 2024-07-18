@@ -20,9 +20,9 @@
                 Admin Panel for accessing UdD Library Feedback entries and Admin accounts.
             </p>
             <div class="d-inline-flex gap-2 mb-5">
-                <a href="/admin/search_log">
+                <a href="/admin/search">
                     <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
-                        Search Logs
+                        Search Feedback
                     </button>
                 </a>
                 <a href="/admin/accounts">
