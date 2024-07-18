@@ -8,8 +8,7 @@ use app\controllers\AdminController;
 use app\controllers\LogController;
 use app\controllers\FeedbackController;
 
-// MASTER VERSION (both Log and Feedback applications)
-// TODO: make different databases 
+// COMBINED VERSION (both Log and Feedback applications)
 
 $router = new Router();
 
