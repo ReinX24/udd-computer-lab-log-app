@@ -14,6 +14,11 @@
                     Time-in | Time-out
                 </button>
             </a>
+            <a href="/feedback/create">
+                <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
+                    Submit Feedback
+                </button>
+            </a>
             <a href="/log/admin_login">
                 <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
                     Admin Login
