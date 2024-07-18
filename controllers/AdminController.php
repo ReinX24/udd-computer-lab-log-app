@@ -37,7 +37,7 @@ class AdminController
         }
 
         $router->renderView(
-            "log/admin_login",
+            "feedback/admin_login",
             [
                 "currentPage" => "adminLoginForm",
                 "adminLoginData" => $adminLoginData,

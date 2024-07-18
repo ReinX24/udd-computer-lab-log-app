@@ -1,12 +1,5 @@
 <?php require_once "includes/feedback_header.php"; ?>
 
-<?php
-// session_start();
-// echo "<pre>";
-// var_dump($_SESSION);
-// echo "</pre>";
-?>
-
 <div class="container my-5">
     <div class="p-5 text-center bg-body-tertiary rounded-3">
         <img src="/images/udd_logo.png" class="mb-4" width="200" height="200">
