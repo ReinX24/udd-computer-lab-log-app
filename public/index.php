@@ -9,6 +9,8 @@ use app\controllers\LogController;
 
 // LOG VERSION
 // TODO: make different databases 
+// TODO: make log_version code as the master branch
+// TODO: remove as much unneeded code from each application
 
 $router = new Router();
 
