@@ -8,8 +8,8 @@ use app\controllers\AdminController;
 use app\controllers\LogController;
 
 // LOG VERSION
-// TODO: make different databases 
 // TODO: remove as much unneeded code from each application
+// TODO: make readme for project
 
 $router = new Router();
 
