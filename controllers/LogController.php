@@ -62,7 +62,7 @@ class LogController
             $errors = $log->save();
 
             if (empty($errors)) {
-                header("Location: /log/log_index");
+                header("Location: /log/log_index?time_in_success=true");
                 exit;
             }
         }
@@ -96,7 +96,7 @@ class LogController
             $errors = $log->addStudentId();
 
             if (empty($errors)) {
-                header("Location: /log/log_index");
+                header("Location: /log/log_index?add_student_id_success=true");
                 exit;
             }
         }
@@ -127,7 +127,7 @@ class LogController
             $log->load($logFormData);
             $log->addTimeOut();
 
-            header("Location: /log/log_index");
+            header("Location: /log/log_index?time_out_success=true");
             exit;
         }
 
@@ -172,17 +172,12 @@ class LogController
                 ? date("Y/m/d H:i:s", strtotime($_POST["time_out"]) + date("s"))
                 : null;
 
-            // echo "<pre>";
-            // var_dump($logFormData);
-            // echo "</pre>";
-            // exit;
-
             $log = new Log();
             $log->load($logFormData);
             $errors = $log->updateLogDataById();
 
             if (empty($errors)) {
-                header("Location: /log/log_index");
+                header("Location: /log/log_index?edit_success=true");
             }
         }
 
@@ -209,7 +204,7 @@ class LogController
             $log->load($logData);
             $log->deleteLogDataById();
 
-            header("Location: /log/log_index");
+            header("Location: /log/log_index?delete_sucesss=true");
         }
     }
 }

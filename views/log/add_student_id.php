@@ -2,10 +2,10 @@
 
 <div class="container my-5">
     <!-- Get name from GET parameter or $logFormData array -->
-    <h2>Add Student ID for <?= $_GET["name"] ?? $logFormData["name"]; ?></h2>
+    <h1>Add Student ID for <?= $_GET["name"] ?? $logFormData["name"]; ?></h1>
     <form action="/log/add_student_id" method="POST">
         <div class="mb-4">
-            <label for="student_id" class="form-label fs-5">Student ID</label>
+            <label for="student_id" class="form-label fs-4">Student ID</label>
             <input type="text" name="student_id" class="form-control form-control-lg" placeholder="Enter Student ID here (22-0365-456)" value="<?= $logFormData["student_id"] ?? ""; ?>">
 
             <?php if (isset($errors["noStudentIdError"])) : ?>

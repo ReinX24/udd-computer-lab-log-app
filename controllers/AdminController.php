@@ -146,7 +146,7 @@ class AdminController
             $errors = $log->addStudentId();
 
             if (empty($errors)) {
-                header("Location: /admin/search_log");
+                header("Location: /admin/search_log?add_student_id_success=true");
                 exit;
             }
         }
@@ -177,7 +177,7 @@ class AdminController
             $log->load($logFormData);
             $log->addTimeOut();
 
-            header("Location: /admin/search_log");
+            header("Location: /admin/search_log?time_out_success=true");
             exit;
         }
 
@@ -227,7 +227,7 @@ class AdminController
             $errors = $log->updateLogDataById();
 
             if (empty($errors)) {
-                header("Location: /admin/search_log");
+                header("Location: /admin/search_log?edit_success=true");
             }
         }
 
@@ -254,7 +254,7 @@ class AdminController
             $log->load($logData);
             $log->deleteLogDataById();
 
-            header("Location: /admin/search_log");
+            header("Location: /admin/search_log?delete_sucesss=true");
         }
     }
     // End search log

@@ -2,13 +2,53 @@
 
 <div class="container my-5">
     <div class="mb-3">
-        <h2>UdD Computer Lab Log</h2>
-        <p class="fs-5">Date: <?= date("m-d-Y") ?></p>
+        <h1>UdD Computer Lab Log</h1>
+        <p class="fs-4">Date: <?= date("m-d-Y") ?></p>
     </div>
 
     <div class="mb-3">
         <a href="/log/log_add" class="btn btn-primary btn-lg">Add Time-In</a>
     </div>
+
+    <!-- Successfully added time-in message -->
+    <?php if (isset($_GET["time_in_success"])) : ?>
+        <div class="alert alert-success alert-dismissible fade show text-center fs-4" role="alert">
+            Successfully timed-in!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Successfully added student id message -->
+    <?php if (isset($_GET["add_student_id_success"])) : ?>
+        <div class="alert alert-success alert-dismissible fade show text-center fs-4" role="alert">
+            Successfully added Student ID!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Successfully added time-out message -->
+    <?php if (isset($_GET["time_out_success"])) : ?>
+        <div class="alert alert-success alert-dismissible fade show text-center fs-4" role="alert">
+            Successfully timed-out!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Successfully edited log message -->
+    <?php if (isset($_GET["edit_success"])) : ?>
+        <div class="alert alert-secondary alert-dismissible fade show text-center fs-4" role="alert">
+            Successfully edited log!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Successfully deleted log message -->
+    <?php if (isset($_GET["delete_sucesss"])) : ?>
+        <div class="alert alert-danger alert-dismissible fade show text-center fs-4" role="alert">
+            Successfully deleted log!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
 
     <div class="mb-3 alert alert-primary text-center fs-4">
         Remember to time-out after using a computer.

@@ -8,10 +8,10 @@ File location (assuming you are using Windows and it is installed in the C
 drive): C:\xampp\apache\conf\extra\httpd-vhosts.conf
 
 <VirtualHost *:80>
-    DocumentRoot "C:\xampp\htdocs\udd-library-feedback-app\public"
+    DocumentRoot "C:\xampp\htdocs\udd-computer-lab-log-app\public"
 
-    ServerName uddfeedback.local
-    <Directory "C:\xampp\htdocs\udd-library-feedback-app\public">
+    ServerName uddlablog.local
+    <Directory "C:\xampp\htdocs\udd-computer-lab-log-app\public">
         RewriteEngine On
 
         RewriteCond %{REQUEST_FILENAME} !-f
@@ -24,5 +24,5 @@ Add the following to the hosts file in Windows
 
 Hosts location: C:\Windows\System32\drivers\etc\hosts
 
-# UdD Library Feedback app
-127.0.0.1 uddfeedback.local
+# UdD Computer Lab Log app
+127.0.0.1 uddlablog.local

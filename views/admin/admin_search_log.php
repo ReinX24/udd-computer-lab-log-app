@@ -46,6 +46,39 @@
         </a>
     </div>
 
+    <!-- Alerts for adding student ID, time-out, edit, and deleted -->
+    <!-- Successfully added student id message -->
+    <?php if (isset($_GET["add_student_id_success"])) : ?>
+        <div class="alert alert-success alert-dismissible fade show text-center fs-4" role="alert">
+            Successfully added Student ID!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Successfully added time-out message -->
+    <?php if (isset($_GET["time_out_success"])) : ?>
+        <div class="alert alert-success alert-dismissible fade show text-center fs-4" role="alert">
+            Successfully timed-out!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Successfully edited log message -->
+    <?php if (isset($_GET["edit_success"])) : ?>
+        <div class="alert alert-secondary alert-dismissible fade show text-center fs-4" role="alert">
+            Successfully edited log!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Successfully deleted log message -->
+    <?php if (isset($_GET["delete_sucesss"])) : ?>
+        <div class="alert alert-danger alert-dismissible fade show text-center fs-4" role="alert">
+            Successfully deleted log!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
     <?php if (!empty($matchedLogs)) : ?>
         <table class="table table-striped fs-5">
             <thead>
@@ -78,18 +111,30 @@
                         <?php endif; ?>
 
                         <td><?= $eachLog["computer_number"]; ?></td>
-                        <td><?= date("h:i:s A / m-d-Y", strtotime($eachLog["time_in"])); ?></td>
+                        <td>
+                            <?= date("h:i:s A", strtotime($eachLog["time_in"])); ?>
+                            <br>
+                            <?= date("m-d-Y", strtotime($eachLog["time_in"])); ?>
+                        </td>
 
                         <!-- Time-out -->
                         <?php if ($eachLog["time_out"]) : ?>
-                            <td><?= date("h:i:s A m-d-Y", strtotime($eachLog["time_out"])); ?></td>
+                            <td>
+                                <?= date("h:i:s A", strtotime($eachLog["time_out"])); ?>
+                                <br>
+                                <?= date("m-d-Y", strtotime($eachLog["time_out"])); ?>
+                            </td>
                         <?php else : ?>
                             <td>
                                 <a href="/admin/search_log/add_time_out?name=<?= $eachLog["name"]; ?>&id=<?= $eachLog["id"]; ?>" class="btn btn-secondary btn-lg">Add Time-Out</a>
                             </td>
                         <?php endif; ?>
 
-                        <td><?= date("h:i:s A / m-d-Y", strtotime($eachLog["created_at"])); ?></td>
+                        <td>
+                            <?= date("h:i:s A", strtotime($eachLog["created_at"])); ?>
+                            <br>
+                            <?= date("m-d-Y", strtotime($eachLog["created_at"])); ?>
+                        </td>
 
                         <!-- Edit or delete -->
                         <td>
