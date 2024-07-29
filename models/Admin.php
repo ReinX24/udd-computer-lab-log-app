@@ -132,6 +132,13 @@ class Admin
         return $errors;
     }
 
+    /**
+     * Edit admin account credentials. Cannot edit master account with an ID of
+     * 1 unless the currently logged in account is the master account with an ID
+     * of 1. Also cannot remove the master status account of the said account
+     * with an ID of 1, regardless of which account us being used.
+     * @return string[] errors
+     */
     public function editAdmin()
     {
         $errors = [];
@@ -174,7 +181,11 @@ class Admin
 
         // If the original master account tries to remove their account 
         // privileges, deny action
-        if ($_SESSION["userLoginInfo"]["id"] == 1 && !$this->master_account) {
+        if (
+            $_SESSION["userLoginInfo"]["id"] == 1
+            && $this->id == 1
+            && !$this->master_account
+        ) {
             $errors["adminEditDenied"] = "Edit Denied!";
         }
 
@@ -211,6 +222,11 @@ class Admin
         return $errors;
     }
 
+    /**
+     * Cannot delete admin account with an ID of 1. This is to avoid someone
+     * being able to delete all the accounts in the database.
+     * @return string[] errors
+     */
     public function deleteAdmin()
     {
         $errors = [];
